@@ -1,12 +1,6 @@
 {
-  "name": "desafio-sharenergy-2023-01",
+  "name": "sharenergy_monorepo",
   "version": "1.0.0",
-  "private": true,
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
-  }
   "description": "Repositório destinado aos interessados em participar do processo seletivo da SHARENERGY 2023/01. As vagas são voltadas para desenvolvimento de aplicações Web e Mobile.",
   "main": "index.js",
   "scripts": {
