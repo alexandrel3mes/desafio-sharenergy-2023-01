@@ -4,7 +4,9 @@
   "description": "Repositório destinado aos interessados em participar do processo seletivo da SHARENERGY 2023/01. As vagas são voltadas para desenvolvimento de aplicações Web e Mobile.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compose:up": "(cd packages && docker-compose -f docker-compose.yml up -d --build && docker-compose logs -f -t)",
+    "compose:down": "(cd packages && docker-compose -f docker-compose.yml down --remove-orphans)"
   },
   "repository": {
     "type": "git",

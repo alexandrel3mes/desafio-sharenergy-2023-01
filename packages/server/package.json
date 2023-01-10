@@ -4,7 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "ts-node-dev --poll --respawn --ignore-watch node_modules ./src/server.ts",
+    "dump": "ts-node-dev ./src/database/dump/dumpIndex.ts",
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli",
+    "migration:run": "yarn typeorm -d ./src/database/index.ts migration:run",
+    "migration:revert": "yarn typeorm -d ./src/database/index.ts migration:revert",
+    "drop": "yarn typeorm -d ./src/database/index.ts schema:drop",
+    "db:reset": "npm run drop && npm run migration:run && npm run dump",
+    "test": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -12,7 +19,23 @@
   "dependencies": {
     "@types/express": "^4.17.15",
     "cors": "^2.8.5",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "bcryptjs": "^2.4.3",
+    "cpf-rg-validator": "^1.0.0",
+    "date-fns": "^2.29.3",
+    "dotenv": "^16.0.3",
+    "express-async-errors": "^3.1.1",
+    "express-handlebars": "^6.0.6",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.3.3",
+    "reflect-metadata": "^0.1.13",
+    "sinon": "^14.0.2",
+    "ts-node-dev": "^2.0.0",
+    "typeorm": "^0.3.10",
+    "typeorm-extension": "^2.2.12",
+    "uuid-validate": "^0.0.3",
+    "uuidv4": "^6.2.13",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.30.5",
@@ -24,6 +47,18 @@
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-import-helpers": "^1.2.1",
     "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "@types/bcryptjs": "^2.4.2",
+    "@types/chai": "^4.3.4",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.14",
+    "@types/jsonwebtoken": "^8.5.9",
+    "@types/mocha": "^10.0.0",
+    "@types/node": "^18.11.9",
+    "@types/sinon": "^10.0.13",
+    "chai": "4.3",
+    "mocha": "10.0",
+    "ts-node-dev": "^2.0.0",
+    "vitest": "^0.25.2"
   }
 }

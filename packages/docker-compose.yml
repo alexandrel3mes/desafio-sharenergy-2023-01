@@ -1,0 +1,51 @@
+version: '3.9'
+services:
+  web:
+    build: ./web
+    ports:
+      - 3000:3000
+    working_dir: /app-web
+    depends_on:
+      server:
+        condition: service_healthy
+    # Os `healthcheck` devem garantir que a aplicação
+    # está operacional, antes de liberar o container
+    environment:
+      - REACT_APP_BASE_URL=http://localhost:3001/
+    volumes: 
+      - ./web/src:/app-web/src
+    healthcheck:
+      test: ["CMD", "lsof", "-t", "-i:3000"]  # Caso utilize outra porta interna para o front, altere ela aqui também
+      timeout: 10s
+      retries: 5
+  server:
+    container_name: app_server
+    working_dir: /packages-server
+    command: npm run dev
+    build: ./server
+    ports:
+      - 3001:3001
+    volumes: 
+      - ./server/src:/packages-server/src
+    depends_on:
+      - db
+    environment:
+      - APP_PORT=3001
+      - JWT_SECRET=jwt_secret
+      - MONGO_URI=mongodb://mongodb:27017/ShareMongo
+    healthcheck:
+      test: ["CMD", "lsof", "-t", "-i:3001"] # Caso utilize outra porta interna para o back, altere ela aqui também
+      timeout: 10s
+      retries: 5
+  db:
+    image: mongo:5.0.7
+    container_name: share_mongo_db
+    volumes:
+      - ./:/app
+    restart: always
+    ports:
+      - 27017:27017
+
+networks:
+  default:
+    name: share_mongo_net
