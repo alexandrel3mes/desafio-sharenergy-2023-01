@@ -5,19 +5,29 @@ import IClient from '../../database/schemas/interfaces/IClient';
 export default class Client implements IClient {
   public readonly id?: string;
 
-  name: string;
+  public name: string;
 
-  email: string;
+  public email: string;
 
-  phone: string;
+  public phone: string;
 
-  cpf: string;
+  public cpf: string;
 
-  address: IAddress;
+  public address: IAddress;
 
-  constructor(props: Omit<Client, 'id'>, id?: string) {
-    Object.assign(this, props);
-
+  constructor(
+    name: string,
+    email: string,
+    phone: string,
+    cpf: string,
+    address: IAddress,
+    id?: string
+  ) {
+    this.name = name;
+    this.email = email;
+    this.phone = phone;
+    this.cpf = cpf;
+    this.address = address;
     if (!id) {
       this.id = ObjectID().str;
     }

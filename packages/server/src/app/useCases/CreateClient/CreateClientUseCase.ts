@@ -20,11 +20,12 @@ export default class CreateClientUseCase {
   }
 
   async execute(data: ICreateClientRequestDTO) {
-    await this.clientExistsByCpf(data.cpf);
-    await this.clientExistsByEmail(data.phone);
-    await this.clientExistsByPhone(data.phone);
+    const { name, email, phone, cpf, address } = data;
+    await this.clientExistsByCpf(cpf);
+    await this.clientExistsByEmail(email);
+    await this.clientExistsByPhone(phone);
 
-    const client = new Client(data);
+    const client = new Client(name, email, phone, cpf, address);
 
     await this.clientRepo.save(client);
   }
