@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import IClient from './interfaces/IClient';
 
-const ClientSchema = new Schema<IClient>({
+export const ClientSchema = new Schema<IClient>({
   name: { type: String, required: true, minlength: 3, maxlength: 100 },
   email: { type: String, required: true, minlength: 8 },
   phone: { type: String, required: true, minlength: 11 },
