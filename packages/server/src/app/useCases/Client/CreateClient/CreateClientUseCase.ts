@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-useless-constructor */
-import Client from '../../entities/Client';
-import { IClientRepository } from '../../repositories/IClientRepository';
+import Client from '../../../entities/Client';
+import { IClientRepository } from '../../../repositories/IClientRepository';
 import { ICreateClientRequestDTO } from './CreateClientDTO';
 
 export default class CreateClientUseCase {

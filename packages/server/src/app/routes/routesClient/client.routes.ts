@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createClientController } from '../../useCases/CreateClient';
+import { createClientController } from '../../useCases/Client/CreateClient';
 import CreateClientValidation from '../../validators/Client/CreateClientValidation';
 
 const clientRouter = Router();

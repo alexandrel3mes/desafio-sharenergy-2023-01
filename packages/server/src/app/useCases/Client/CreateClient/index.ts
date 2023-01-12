@@ -1,4 +1,4 @@
-import MongooseClientRepository from '../../repositories/implementations/MongooseClientRepository';
+import MongooseClientRepository from '../../../repositories/implementations/MongooseClientRepository';
 import CreateClientController from './CreateClientController';
 import CreateClientUseCase from './CreateClientUseCase';
 

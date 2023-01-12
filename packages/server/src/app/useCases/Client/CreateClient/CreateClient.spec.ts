@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { describe, expect, it } from 'vitest';
-import InMemoryClientRepository from '../../repositories/in-memory/inMemory.client.repository';
+import InMemoryClientRepository from '../../../repositories/in-memory/inMemory.client.repository';
 import CreateClientUseCase from './CreateClientUseCase';
 
 describe('Create Client - InMemory', () => {
