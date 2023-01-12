@@ -4,6 +4,20 @@ import { IClientRepository } from '../IClientRepository';
 export default class InMemoryClientRepository implements IClientRepository {
   public items: Client[] = [];
 
+  async findById(id: string) {
+    const finder = this.items.find((item) => {
+      return item.id === id;
+    });
+
+    if (!finder) throw new Error('Cliente não encontrado');
+    return finder;
+  }
+
+  async remove(id: string): Promise<void> {
+    const filter = this.items.filter((item) => item.id !== id);
+    this.items = filter;
+  }
+
   async existsByCpf(cpf: string): Promise<void> {
     const finder = this.items.find((item) => {
       return item.cpf === cpf;

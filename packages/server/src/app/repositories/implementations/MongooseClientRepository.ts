@@ -7,13 +7,24 @@ import throwCustomError from '../../error/throwCustomError';
 import { IClientRepository } from '../IClientRepository';
 
 export default class MongooseClientRepository implements IClientRepository {
-  private schema: Schema; // Atributo para o "molde"
+  private schema: Schema;
 
-  private model: Model<IClient>; // Atributo para criar coleção e fornecer acesso ao banco
+  private model: Model<IClient>;
 
   constructor() {
     this.schema = ClientSchema;
     this.model = models.Client || model('Client', this.schema);
+  }
+
+  async findById(id: string) {
+    const client = await this.model.findOne({ id });
+    if (!client)
+      throwCustomError('validationError', errorMessages.NOT_FOUND_CLIENT);
+    return client;
+  }
+
+  async remove(id: string): Promise<void> {
+    await this.model.deleteOne({ id });
   }
 
   async existsByCpf(cpf: string): Promise<void> {

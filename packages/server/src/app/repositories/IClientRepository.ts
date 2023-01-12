@@ -6,4 +6,6 @@ export interface IClientRepository {
   existsByPhone(phone: string): Promise<void>;
   existsByEmail(email: string): Promise<void>;
   save(client: Client): Promise<Client>;
+  findById(id: string);
+  remove(id: string): Promise<void>;
 }
