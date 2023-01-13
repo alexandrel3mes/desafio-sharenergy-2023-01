@@ -4,6 +4,7 @@ import IClient from '../../../database/schemas/interfaces/IClient';
 import Client from '../../entities/Client';
 import errorMessages from '../../error/errorMessages';
 import throwCustomError from '../../error/throwCustomError';
+import IFindClientsReturn from '../../useCases/Client/FindClient/interfaces/IFindClientsReturn';
 import { IClientRepository } from '../IClientRepository';
 
 export default class MongooseClientRepository implements IClientRepository {
@@ -16,10 +17,21 @@ export default class MongooseClientRepository implements IClientRepository {
     this.model = models.Client || model('Client', this.schema);
   }
 
+  async findAll(): Promise<IFindClientsReturn> {
+    const clients = await this.model.find();
+    const countClients = await this.model.count();
+    if (clients.length === 0 || countClients === 0)
+      throwCustomError('notFoundError', errorMessages.NO_CLIENTS);
+    return {
+      clients,
+      countClients,
+    };
+  }
+
   async findById(id: string) {
     const client = await this.model.findOne({ id });
     if (!client)
-      throwCustomError('validationError', errorMessages.NOT_FOUND_CLIENT);
+      throwCustomError('notFoundError', errorMessages.NOT_FOUND_CLIENT);
     return client;
   }
 

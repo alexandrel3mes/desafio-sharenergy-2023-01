@@ -1,8 +1,18 @@
 import Client from '../../entities/Client';
+import IFindClientsReturn from '../../useCases/Client/FindClient/interfaces/IFindClientsReturn';
 import { IClientRepository } from '../IClientRepository';
 
 export default class InMemoryClientRepository implements IClientRepository {
   public items: Client[] = [];
+
+  async findAll(): Promise<IFindClientsReturn> {
+    const clients = this.items;
+    if (clients.length === 0) throw new Error('Sem clientes cadsatrados');
+    return {
+      clients,
+      countClients: clients.length,
+    };
+  }
 
   async findById(id: string) {
     const finder = this.items.find((item) => {
