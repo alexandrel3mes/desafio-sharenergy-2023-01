@@ -12,7 +12,7 @@ export default class DeleteClientController {
     await this.deleteClientUseCase.execute(id);
 
     return response
-      .status(201)
+      .status(204)
       .json({ message: 'Cliente removido com sucesso!' });
   }
 }

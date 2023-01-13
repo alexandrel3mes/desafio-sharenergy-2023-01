@@ -10,11 +10,11 @@ export default class FindClientController {
     const { id } = request.params;
     if (id) {
       const client = await this.findClientUseCase.findById(id);
-      return response.status(201).json(client);
+      return response.status(200).json(client);
     }
 
     const clients = await this.findClientUseCase.findAll();
 
-    return response.status(201).json(clients);
+    return response.status(200).json(clients);
   }
 }

@@ -84,7 +84,7 @@ export default class MongooseClientRepository implements IClientRepository {
   }
 
   async findById(id: string) {
-    const client = await this.model.findOne({ id });
+    const client = await this.model.findById(id);
     if (!client)
       throwCustomError('notFoundError', errorMessages.NOT_FOUND_CLIENT);
     return client;

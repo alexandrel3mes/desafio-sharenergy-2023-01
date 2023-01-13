@@ -1,0 +1,28 @@
+components:
+  schemas:
+    Address:
+      type: object
+      properties:
+        street:
+          type: string
+          example: Rua Fulano de tal
+        district:
+          type: string
+          required: true
+          example: Bairro X
+        city:
+          type: string
+          required: true
+          example: Vitoria
+        state:
+          type: string
+          required: true
+          example: "ES"
+        country:
+          type: string
+          required: true
+          example: "Brasil"
+        zipcode:
+          type: string
+          required: true
+          example: "29345678"
