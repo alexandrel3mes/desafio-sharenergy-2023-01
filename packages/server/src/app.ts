@@ -1,6 +1,9 @@
 import express from 'express';
 import 'express-async-errors';
 import cors from 'cors';
+import swaggerJsDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
+import swaggerConfig from './app/config/swagger';
 import routes from './app/routes';
 import errorMiddleware from './app/middlewares/errorMiddleware';
 
@@ -29,6 +32,8 @@ class App {
     this.app.use(cors());
     this.app.use(express.json());
     this.app.use(routes);
+    this.app.use('/docs', swaggerUi.serve);
+    this.app.get('/docs', swaggerUi.setup(swaggerJsDoc(swaggerConfig)));
   }
 
   public start(PORT: string | number): void {

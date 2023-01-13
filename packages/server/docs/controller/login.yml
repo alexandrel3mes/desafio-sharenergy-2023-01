@@ -1,0 +1,72 @@
+paths:
+  /login:
+    post:
+      tags: ["Admin"]
+      summary: Rota de login para admin.
+      description: Rota de login para admin.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  required: true
+                  example: desafiosharenergy
+                password:
+                  type: string
+                  required: true
+                  example: sh@r3n3rgy
+              required:
+                - username
+                - password
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    required: true
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiNjNjMWNmZGYxMzEzMTIyYTYxYWYzMWRiIiwiaWF0IjoxNjczNjQ3OTI4fQ.ydf2wIuiCYC-Z7mD9So9RDBHrs2WaebJ_FI6f6FJb9Q"
+
+        "400":
+          description: Erros envolvendo algum campo obrigatório que não foi enviado ou algum campo inválido.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    required: true
+                    example: username é um campo obrigatório.
+
+        "404":
+          description: Usuário não encontrado na base de dados.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    required: true
+                    example: Pessoa administradora não encontrada.
+
+        "500":
+          description: Erro interno no servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    required: true
+                    example: Erro interno no servidor.
