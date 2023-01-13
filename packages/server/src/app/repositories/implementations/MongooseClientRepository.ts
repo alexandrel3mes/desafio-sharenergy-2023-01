@@ -4,6 +4,8 @@ import IClient from '../../../database/schemas/interfaces/IClient';
 import Client from '../../entities/Client';
 import errorMessages from '../../error/errorMessages';
 import throwCustomError from '../../error/throwCustomError';
+import { IEditClientRequestDTO } from '../../useCases/Client/EditClient/EditClientDTO';
+import IEditAddressDTO from '../../useCases/Client/EditClient/IEditAddressDTO';
 import IFindClientsReturn from '../../useCases/Client/FindClient/interfaces/IFindClientsReturn';
 import { IClientRepository } from '../IClientRepository';
 
@@ -15,6 +17,59 @@ export default class MongooseClientRepository implements IClientRepository {
   constructor() {
     this.schema = ClientSchema;
     this.model = models.Client || model('Client', this.schema);
+  }
+
+  handleAddressChange(
+    clientToUpdate: any,
+    clientPayload: IEditClientRequestDTO
+  ) {
+    const returnedAddress: IEditAddressDTO = {};
+    if (clientPayload.address?.city)
+      returnedAddress.city = clientPayload.address?.city;
+    if (!clientPayload.address?.city)
+      returnedAddress.city = clientToUpdate.address?.city;
+
+    if (clientPayload.address?.street)
+      returnedAddress.street = clientPayload.address?.street;
+    if (!clientPayload.address?.street)
+      returnedAddress.street = clientToUpdate.address?.street;
+
+    if (clientPayload.address?.district)
+      returnedAddress.district = clientPayload.address?.district;
+    if (!clientPayload.address?.district)
+      returnedAddress.district = clientToUpdate.address?.district;
+
+    if (clientPayload.address?.state)
+      returnedAddress.state = clientPayload.address?.state;
+    if (!clientPayload.address?.state)
+      returnedAddress.state = clientToUpdate.address?.state;
+
+    if (clientPayload.address?.country)
+      returnedAddress.country = clientPayload.address?.country;
+    if (!clientPayload.address?.country)
+      returnedAddress.country = clientToUpdate.address?.country;
+
+    if (clientPayload.address?.zipcode)
+      returnedAddress.zipcode = clientPayload.address?.zipcode;
+    if (!clientPayload.address?.zipcode)
+      returnedAddress.zipcode = clientToUpdate.address?.zipcode;
+
+    return returnedAddress;
+  }
+
+  async edit(
+    userId: string,
+    clientPayload: IEditClientRequestDTO
+  ): Promise<void> {
+    const client = await this.findById(userId);
+    const address = this.handleAddressChange(client, clientPayload);
+    await this.model.findOneAndUpdate(
+      { userId },
+      {
+        ...clientPayload,
+        address,
+      }
+    );
   }
 
   async findAll(): Promise<IFindClientsReturn> {

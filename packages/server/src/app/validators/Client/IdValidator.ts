@@ -7,7 +7,6 @@ import Yup from '../../lib/Yup';
 export default async (req: Request, res: Response, next: NextFunction) => {
   try {
     await Yup.string()
-      .typeError('Identificador deve ser uma string.')
       .required()
       .validate(req.params.id, { abortEarly: false });
 
